@@ -32,7 +32,6 @@ let orm = {
                 throw err;
             }
             cb(res);
-            console.log(res);
         });
     },
     insertOne: function (table, colm, valor, cd) {
@@ -46,7 +45,6 @@ let orm = {
         connection.query(query, valor, function (err, res) {
             if (err) { throw err };
             cd(res);
-            console.log(res);
         })
     },
     updateOne: function (table, colm, cond, cd) {
@@ -55,22 +53,28 @@ let orm = {
         query += objToSql(colm);
         query += " WHERE ";
         query += cond;
-        console.log(query);
         connection.query(query, function (err, res) {
             if (err) { throw err };
             cd(res);
+        });
+    },
+    delete: function (table, condition, cb) {
+        var queryString = "DELETE FROM " + table;
+        queryString += " WHERE ";
+        queryString += condition;
+
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            cb(result);
         });
     }
 
 }
 
-//let table = "burgers";
-// let columna = "burger_name, devoured";
-// let valortest = { burger_name: "Double Chesse Burger", devoured: false };
-// let valToSql = objToSql(valortest);
-// console.log(valToSql.length);
-// orm.insertOne(table, columna, valToSqls);
-//let objPrueba = { nombre: "Luis Gomez", edad: 43, sexo: "Masculino" };
+
 
 module.exports = orm;
 
