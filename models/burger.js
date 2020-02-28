@@ -1,5 +1,7 @@
+//! require ORM file
 const orm = require("../config/orm");
 
+//! Varible "burger" with all ORM functions to manipulate DB
 let burger = {
     selectAll: function (cd) {
         orm.selectAll("burgers", function (res) {
